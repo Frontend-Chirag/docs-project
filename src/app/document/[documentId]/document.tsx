@@ -4,7 +4,7 @@ import React from 'react';
 
 import { Editor } from './editor';
 import { Toolbar } from './toolbar';
-import { EditorNavBar } from '@/components/EditorNavbar';
+import { EditorNavBar } from '@/components/EditorNavbar/EditorNavbar';
 import { Room } from '@/liveblock/room';
 import { Preloaded, usePreloadedQuery } from 'convex/react';
 import { api } from '../../../../convex/_generated/api';

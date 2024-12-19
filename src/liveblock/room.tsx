@@ -56,6 +56,7 @@ export function Room({ children }: { children: ReactNode }) {
 
         return await response.json();
       }}
+      
       resolveUsers={({ userIds }) => {
         return userIds.map((userId) => users.find((user) => user.id === userId ))
       }}

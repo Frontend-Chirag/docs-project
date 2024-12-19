@@ -1,145 +1,55 @@
 "use client";
 
 import React from 'react';
-import {
-    ArrowLeftIcon,
-    BoldIcon,
-    ItalicIcon,
-    ListTodoIcon,
-    LucideIcon,
-    MessageSquarePlusIcon,
-    PrinterIcon,
-    Redo2Icon,
-    RemoveFormattingIcon,
-    SpellCheckIcon,
-    UnderlineIcon,
-    Undo2Icon
-} from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-import { useEditorStore } from '@/store/useEditorStore';
 
-import { AlignButton } from '@/components/AlignButton';
-import { FontFamilyButton } from '@/components/FontFamilyButton';
-import { FontSizeButton } from '@/components/FontSizeButton';
-import { HeadingLevelButton } from '@/components/HeadingLevelButton';
-import { HighLightColorButton } from '@/components/HighLightColorButton';
-import { ImageButton } from '@/components/ImageButton';
-import { LineHeightButton } from '@/components/LineHeightButton';
-import { LinkButton } from '@/components/LinkButton';
-import { ListButton } from '@/components/ListButton';
-import { TextColorButton } from '@/components/TextColorButton';
+import { AlignButton } from '@/components/ToolNav/AlignButton';
+import { FontFamilyButton } from '@/components/ToolNav/FontFamilyButton';
+import { FontSizeButton } from '@/components/ToolNav/FontSizeButton';
+import { HeadingLevelButton } from '@/components/ToolNav/HeadingLevelButton';
+import { HighLightColorButton } from '@/components/ToolNav/HighLightColorButton';
+import { ImageButton } from '@/components/ToolNav/ImageButton';
+import { LineHeightButton } from '@/components/ToolNav/LineHeightButton';
+import { LinkButton } from '@/components/ToolNav/LinkButton';
+import { TextColorButton } from '@/components/ToolNav/TextColorButton';
 import { Separator } from '@/components/ui/separator';
-import { useRouter } from 'next/navigation';
+import { CustomToolTip } from '@/components/CustomToolTip';
+import { useToolbarSections } from '@/contants/sections';
+import { LucideIcon } from 'lucide-react';
 
 
 interface ToolbarButtonProps {
     onClick?: () => void;
     isActive?: boolean;
     icon: LucideIcon;
+    label: string;
 };
 
-
-
-const ToolbarButton = ({ onClick, isActive, icon: Icon }: ToolbarButtonProps) => {
+const ToolbarButton = ({ onClick, isActive, icon: Icon, label }: ToolbarButtonProps) => {
 
     return (
-        <button
-            onClick={onClick}
-            className={cn(
-                "text-sm h-7 min-w-7  flex items-center justify-center outline-none border-none rounded-sm hover:bg-neutral-200/80",
-                isActive && "bg-neutral-200/80"
-            )}
-        >
-            <Icon className='size-4' />
-        </button>
+        <CustomToolTip label={label}>
+            <button
+                onClick={onClick}
+                className={cn(
+                    "text-sm h-7 min-w-7  flex items-center justify-center outline-none border-none rounded-sm hover:bg-neutral-200/80",
+                    isActive && "bg-neutral-200/80"
+                )}
+            >
+                <Icon className='size-4' />
+            </button>
+        </CustomToolTip>
     )
 };
 
 export const Toolbar = () => {
 
-    const { editor } = useEditorStore();
-    const router = useRouter();
+    const sections = useToolbarSections();
 
-    const sections: {
-        label: string;
-        icon: LucideIcon;
-        onClick: () => void;
-        isActive?: boolean;
-    }[][] = [
-            [
-                {
-                    label: "Goback",
-                    icon: ArrowLeftIcon,
-                    onClick: () => router.push('/')
-                },
-                {
-                    label: "Undo",
-                    icon: Undo2Icon,
-                    onClick: () => editor?.chain().focus().undo().run()
-                },
-                {
-                    label: "Redo",
-                    icon: Redo2Icon,
-                    onClick: () => editor?.chain().focus().redo().run()
-                },
-                {
-                    label: "Print",
-                    icon: PrinterIcon,
-                    onClick: () => window.print()
-                },
-                {
-                    label: "Spell Check",
-                    icon: SpellCheckIcon,
-                    onClick: () => {
-                        const current = editor?.view.dom.getAttribute("spellcheck");
-                        editor?.view.dom.setAttribute("spellcheck", current === "false" ? "true" : "false")
-                    }
-                },
-            ],
-            [
-                {
-                    label: "Bold",
-                    icon: BoldIcon,
-                    isActive: editor?.isActive("bold"),
-                    onClick: () => editor?.chain().focus().toggleBold().run()
-                },
-                {
-                    label: "Italic",
-                    icon: ItalicIcon,
-                    isActive: editor?.isActive("italic"),
-                    onClick: () => editor?.chain().focus().toggleItalic().run()
-                },
-                {
-                    label: "Underline",
-                    icon: UnderlineIcon,
-                    isActive: editor?.isActive("underline"),
-                    onClick: () => editor?.chain().focus().toggleUnderline().run()
-                },
-            ],
-            [
-                {
-                    label: "Comment",
-                    icon: MessageSquarePlusIcon,
-                    onClick: () => editor?.chain().focus().addPendingComment().run(),
-                    isActive: editor?.isActive("liveblocksCommentMark")
-                },
-                {
-                    label: "List Todo",
-                    icon: ListTodoIcon,
-                    isActive: editor?.isActive('taskList'),
-                    onClick: () => editor?.chain().focus().toggleTaskList().run()
-                },
-                {
-                    label: "Remove Formatting",
-                    icon: RemoveFormattingIcon,
-                    onClick: () => editor?.chain().unsetAllMarks().run()
-                }
-            ]
-        ];
 
     return (
-        <div className='bg-[#F1F4F9] px-2.5 py-0.5 rounded-[24px] min-h-[48px] flex items-center gap-x-4 overflow-x-auto'>
+        <div className='bg-[#F1F4F9] px-8 py-0.5 rounded-[24px] min-h-[48px] flex items-center gap-x-1.5 overflow-x-auto'>
             {sections[0].map((item) => (
                 <ToolbarButton key={item.label} {...item} />
             ))}
@@ -159,9 +69,11 @@ export const Toolbar = () => {
             <ImageButton />
             <AlignButton />
             <LineHeightButton />
-            <ListButton />
-
+            <Separator orientation='vertical' className='h-6 bg-neutral-300' />
             {sections[2].map((item) => (
+                <ToolbarButton key={item.label} {...item} />
+            ))}
+            {sections[3].map((item) => (
                 <ToolbarButton key={item.label} {...item} />
             ))}
         </div>

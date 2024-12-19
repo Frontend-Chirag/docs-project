@@ -8,16 +8,17 @@ import {
     DropdownMenuContent,
     DropdownMenuTrigger,
     DropdownMenuItem
-} from './ui/dropdown-menu';
+} from '../ui/dropdown-menu';
 import {
     Dialog,
     DialogContent,
     DialogFooter,
     DialogHeader,
     DialogTitle
-} from './ui/dialog';
-import { Input } from './ui/input';
-import { Button } from './ui/button';
+} from '../ui/dialog';
+import { Input } from '../ui/input';
+import { Button } from '../ui/button';
+import { CustomToolTip } from '../CustomToolTip';
 
 
 
@@ -58,7 +59,6 @@ export const ImageButton = () => {
     };
 
 
-
     return (
         <>
             <DropdownMenu>
@@ -66,7 +66,9 @@ export const ImageButton = () => {
                     <button
                         className='h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80'
                     >
-                        <ImageIcon className='size-4' />
+                        <CustomToolTip label='image'>
+                            <ImageIcon className='size-4' />
+                        </CustomToolTip>
                     </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>

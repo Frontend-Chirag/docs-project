@@ -8,7 +8,7 @@ import {
     DropdownMenuTrigger,
     DropdownMenu,
     DropdownMenuContent
-} from './ui/dropdown-menu';
+} from '../ui/dropdown-menu';
 
 
 export const FontFamilyButton = () => {

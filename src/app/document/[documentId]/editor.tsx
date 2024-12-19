@@ -18,8 +18,14 @@ import Highlight from '@tiptap/extension-highlight';
 import Link from '@tiptap/extension-link';
 import TextAlign from '@tiptap/extension-text-align';
 import { Color } from '@tiptap/extension-color';
+import HorizontalRule from '@tiptap/extension-horizontal-rule'
 import { FontSizeExtension } from '@/extensions/font-size';
 import { lineHeightExtension } from '@/extensions/line-height';
+import { CodeBlockExtension } from '@/extensions/code-block';
+import Subscript from '@tiptap/extension-subscript'
+import Superscript from '@tiptap/extension-superscript'
+import { ColumnBlock, ColumnLayout } from '@/extensions/columns';
+
 
 import { useEditorStore } from '@/store/useEditorStore';
 import { Ruler } from './ruler';
@@ -28,11 +34,13 @@ import { useLiveblocksExtension } from "@liveblocks/react-tiptap";
 import { Threads } from '@/liveblock/threads';
 import { useStorage } from '@liveblocks/react/suspense';
 import { LEFT_MARGIN_DEFAULT, RIGHT_MARGIN_DEFAULT } from '@/contants/margins';
+import { ContentItemMenu } from '@/components/ContentItemMenu';
 
 
 interface EditorProps {
     initialContent: string | undefined
-}
+};
+
 
 export const Editor = ({ initialContent }: EditorProps) => {
 
@@ -45,8 +53,13 @@ export const Editor = ({ initialContent }: EditorProps) => {
     const rightMargin = useStorage((root) => root.rightMargin);
 
     const editor = useEditor({
-        
+
         extensions: [
+            Superscript,
+            Subscript,
+            HorizontalRule,
+            ColumnBlock,
+            ColumnLayout,
             liveBlocks,
             StarterKit.configure({
                 history: false
@@ -60,6 +73,7 @@ export const Editor = ({ initialContent }: EditorProps) => {
             FontSizeExtension,
             TextStyle,
             Color,
+            CodeBlockExtension,
             lineHeightExtension.configure({
                 types: ['heading', 'paragraph'],
                 defaultLineHeight: "normal"
@@ -85,14 +99,16 @@ export const Editor = ({ initialContent }: EditorProps) => {
             }),
         ],
         onCreate({ editor }) {
-            setEditor(editor);
+            setEditor(editor);  
         },
         onDestroy() {
             setEditor(null);
         },
         onUpdate({ editor }) {
-            setEditor(editor)
+            setEditor(editor);
+           
         },
+
         onSelectionUpdate({ editor }) {
             setEditor(editor)
         },
@@ -103,7 +119,7 @@ export const Editor = ({ initialContent }: EditorProps) => {
             setEditor(editor)
         },
         onBlur({ editor }) {
-            setEditor(editor)
+            setEditor(editor);
         },
         onContentError({ editor }) {
             setEditor(editor)
@@ -117,12 +133,15 @@ export const Editor = ({ initialContent }: EditorProps) => {
         immediatelyRender: false,
     });
 
+    if (!editor) return;
 
     return (
         <div className='size-full overflow-x-auto bg-[#F9FBFD] px-4 print:p-0 print:bg-white print:overflow-visible'>
             <Ruler />
-            <div className='min-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0'>
+            <div className='min-w-max flex justify-center w-[816px]  py-4 print:py-0 mx-auto print:w-full print:min-w-0'>
+                <ContentItemMenu editor={editor} />
                 <EditorContent editor={editor} />
+
                 <Threads
                     editor={editor}
                 />

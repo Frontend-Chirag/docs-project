@@ -7,7 +7,8 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuTrigger
-} from './ui/dropdown-menu';
+} from '../ui/dropdown-menu';
+import { PencilIcon } from 'lucide-react';
 
 
 
@@ -27,8 +28,7 @@ export const HighLightColorButton = () => {
                 <button
                     className='h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80'
                 >
-                    <span className='text-xs'>A</span>
-                    <div className='h-1 w-full' style={{ backgroundColor: value }} />
+                    <PencilIcon className='size-4'/>
                 </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className='p-0'>

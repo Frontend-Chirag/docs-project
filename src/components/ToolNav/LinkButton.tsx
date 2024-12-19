@@ -6,9 +6,10 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuTrigger
-} from './ui/dropdown-menu';
-import { Input } from './ui/input';
-import { Button } from './ui/button';
+} from '../ui/dropdown-menu';
+import { Input } from '../ui/input';
+import { Button } from '../ui/button';
+import { CustomToolTip } from '../CustomToolTip';
 
 
 
@@ -34,7 +35,9 @@ export const LinkButton = () => {
                 <button
                     className='h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80'
                 >
-                    <Link2Icon className='size-4' />
+                    <CustomToolTip label='link'>
+                        <Link2Icon className='size-4' />
+                    </CustomToolTip>
                 </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className='p-2.5 flex items-center gap-x-2'>

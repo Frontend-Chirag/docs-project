@@ -8,7 +8,10 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuTrigger
-} from './ui/dropdown-menu';
+} from '../ui/dropdown-menu';
+import { CustomToolTip } from '../CustomToolTip';
+import { lineHeights } from '@/contants/lineheight';
+
 
 
 
@@ -16,13 +19,6 @@ export const LineHeightButton = () => {
 
     const { editor } = useEditorStore();
 
-    const lineHeights = [
-        { label: "Default", value: "normal" },
-        { label: "Single", value: "1" },
-        { label: "1.15", value: "1.15" },
-        { label: "1.5", value: "1.5" },
-        { label: "Double", value: "2" },
-    ]
 
     return (
         <DropdownMenu>
@@ -30,7 +26,9 @@ export const LineHeightButton = () => {
                 <button
                     className='h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80'
                 >
-                    <ListCollapseIcon className='size-4' />
+                    <CustomToolTip label='lineheight'>
+                        <ListCollapseIcon className='size-4' />
+                    </CustomToolTip>
                 </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className='p-1 flex flex-col gap-y-1'>

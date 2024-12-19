@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import './tiptap.css';
+ 
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -89,186 +91,40 @@ body {
   }
 }
 
-.tiptap {
 
-  /* Heading styles */
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    line-height: 1.1;
-    margin-top: 2.5rem;
-    text-wrap: pretty;
-  }
+/* Container for the drag handle */
+.drag-handle-icon-container {
+  position: relative;
+}
 
-  h1,
-  h2 {
-    margin-top: 3.5rem;
-    margin-bottom: 1.5rem;
-  }
+/* Drag handle icon */
+.drag-handle-icon {
+  position: absolute;
+  top: 50%;
+  left: -24px; /* Adjust to position the handle properly */
+  transform: translateY(-50%);
+  cursor: grab;
+  color: #888;
+  background: #f3f4f6;
+  padding: 4px;
+  border-radius: 4px;
+  display: none; /* Hidden by default */
+}
 
-  h1 {
-    font-size: 1.4rem;
-  }
+.drag-handle-icon:hover {
+  color: #333;
+  background: #e5e7eb;
+}
 
-  h2 {
-    font-size: 1.2rem;
-  }
-
-  h3 {
-    font-size: 1.1rem;
-  }
-
-  h4,
-  h5,
-  h6 {
-    font-size: 1rem;
-  }
-
-  /* List styles */
-  ul,
-  ol {
-    padding: 0 1rem;
-    margin: 1.25rem 1rem 1.25rem 0.4rem;
-  }
-
-  ul li {
-    list-style-type: disc;
-
-    p {
-      margin-top: 0.25em;
-      margin-bottom: 0.25em;
-    }
-  }
-
-  ol li {
-    list-style-type: decimal;
-
-    p {
-      margin-top: 0.25em;
-      margin-bottom: 0.25em;
-    }
-  }
-
-  /* Task list specific styles */
-  ul[data-type="taskList"] {
-    list-style: none;
-    margin-left: 0;
-    padding: 0;
-
-    li {
-      align-items: flex-start;
-      display: flex;
-
-      >label {
-        flex: 0 0 auto;
-        margin-right: 0.5rem;
-        user-select: none;
-      }
-
-      >div {
-        flex: 1 1 auto;
-      }
-    }
-
-    input[type="checkbox"] {
-      cursor: pointer;
-    }
-
-    ul[data-type="taskList"] {
-      margin: 0;
-    }
-  }
-
-
-  /* Table-specific styling */
-  table {
-    border-collapse: collapse;
-    margin: 0;
-    overflow: hidden;
-    table-layout: fixed;
-    width: 100%;
-
-    td,
-    th {
-      border: 1px solid black;
-      box-sizing: border-box;
-      min-width: 1em;
-      padding: 6px 8px;
-      position: relative;
-      vertical-align: top;
-
-      >* {
-        margin-bottom: 0;
-      }
-    }
-
-    th {
-      background-color: #C7C7C7;
-      font-weight: bold;
-      text-align: left;
-    }
-
-    .selectedCell:after {
-      background: #959595;
-      content: "";
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      pointer-events: none;
-      position: absolute;
-      z-index: 2;
-    }
-
-    .column-resize-handle {
-      background-color: var(--primary);
-      bottom: -2px;
-      pointer-events: none;
-      position: absolute;
-      right: -2px;
-      top: 0;
-      width: 4px;
-    }
-  }
-
-  .tableWrapper {
-    margin: 1.5rem 0;
-    overflow-x: auto;
-  }
-
-  &.resize-cursor {
-    cursor: ew-resize;
-    cursor: col-resize;
-  }
-
-  /* Link styles */
-  a {
-    @apply text-blue-600;
-    cursor: pointer;
-
-    &:hover {
-      @apply underline;
-    }
-  }
-
-  /* Image specific styling */
-  img {
-    display: block;
-    height: auto;
-    margin: 1.5rem 0;
-    max-width: 100%;
-
-    &.ProseMirror-selectednode {
-      outline: 3px solid var(--purple);
-    }
-  }
-
+.drag-handle-icon-container:hover .drag-handle-icon {
+  display: block; /* Show when hovering over the node */
 }
 
 
+
+.icon {
+  @apply size-4 mr-2
+}
 
 /* For mobile */
 .floating-threads {
@@ -294,70 +150,76 @@ body {
   }
 
 
-/* Blank Document */
-.blank-template {
-  background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
-  color: #333;
-  text-align: center;
-}
-.blank-template h1 {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #444;
-}
-.blank-template p {
-  font-size: 1rem;
-  color: #777;
-}
+  /* Blank Document */
+  .blank-template {
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    color: #333;
+    text-align: center;
+  }
 
-/* Software Proposal */
-.software-proposal-template {
-  background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
-  color: #333;
-}
-.software-proposal-template h1 {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #2a2a72;
-}
-.software-proposal-template button {
-  background-color: #6a4bc9;
-  color: #fff;
-  padding: 10px 20px;
-  margin-top: 20px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
+  .blank-template h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #444;
+  }
 
-/* Project Proposal */
-.project-proposal-template {
-  background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
-  color: #333;
-}
-.project-proposal-template button {
-  background-color: #ff6584;
-  color: #fff;
-  padding: 10px 20px;
-  margin-top: 20px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
+  .blank-template p {
+    font-size: 1rem;
+    color: #777;
+  }
 
-/* Business Letter */
-.business-letter-template {
-  background: #ffffff;
-  color: #333;
-  border-left: 5px solid #6a4bc9;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-}
-.business-letter-template p {
-  font-size: 1rem;
-  margin-bottom: 10px;
-  color: #444;
-}
+  /* Software Proposal */
+  .software-proposal-template {
+    background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+    color: #333;
+  }
+
+  .software-proposal-template h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #2a2a72;
+  }
+
+  .software-proposal-template button {
+    background-color: #6a4bc9;
+    color: #fff;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  /* Project Proposal */
+  .project-proposal-template {
+    background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+    color: #333;
+  }
+
+  .project-proposal-template button {
+    background-color: #ff6584;
+    color: #fff;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  /* Business Letter */
+  .business-letter-template {
+    background: #ffffff;
+    color: #333;
+    border-left: 5px solid #6a4bc9;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
+
+  .business-letter-template p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #444;
+  }
 
 }
 

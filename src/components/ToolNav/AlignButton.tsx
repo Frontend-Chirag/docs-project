@@ -2,9 +2,6 @@
 import React from 'react'
 import {
     AlignLeftIcon,
-    AlignCenterIcon,
-    AlignRightIcon,
-    AlignJustifyIcon
 } from "lucide-react";
 
 import { cn } from '@/lib/utils';
@@ -14,7 +11,9 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuTrigger
-} from './ui/dropdown-menu';
+} from '../ui/dropdown-menu';
+import { CustomToolTip } from '../CustomToolTip';
+import { alignments } from '@/contants/alignments';
 
 
 
@@ -23,28 +22,6 @@ export const AlignButton =
 
         const { editor } = useEditorStore();
 
-        const alignments = [
-            {
-                label: "Align Left",
-                value: "left",
-                icon: AlignLeftIcon
-            },
-            {
-                label: "Align center",
-                value: "center",
-                icon: AlignCenterIcon
-            },
-            {
-                label: "Align Right",
-                value: "right",
-                icon: AlignRightIcon
-            },
-            {
-                label: "Align Justify",
-                value: "justify",
-                icon: AlignJustifyIcon
-            }
-        ]
 
         return (
             <DropdownMenu>
@@ -52,7 +29,9 @@ export const AlignButton =
                     <button
                         className='h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80'
                     >
-                        <AlignLeftIcon className='size-4' />
+                        <CustomToolTip label='aligns'>
+                            <AlignLeftIcon className='size-4' />
+                        </CustomToolTip>
                     </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className='p-1 flex flex-col gap-y-1'>

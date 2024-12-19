@@ -7,8 +7,7 @@
   packages = [
     pkgs.nodejs_20
     pkgs.yarn
-    pkgs.nodePackages.pnpm
-    pkgs.bun
+    pkgs.nodePackages.pnpm    pkgs.bun
   ];
   # Sets environment variables in the workspace
   env = {};

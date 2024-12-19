@@ -22,7 +22,7 @@ export const templates = [
         label: "Software Development Proposal",
         imageUrl: '/software-proposal.svg',
         initialContent: `
-        <div style="
+        <div className='software' style="
             font-family: 'Poppins', sans-serif; 
             padding: 40px; 
             background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); 
@@ -115,3 +115,84 @@ export const templates = [
         </div>`
     },
 ];
+
+export const codeBlockTemplates = [
+    {
+        label: 'JavaScript',
+        value: 'javascript',
+        template: `// JavaScript Starter
+  // This is a simple JavaScript function
+  function greet(name) {
+    console.log(\`Hello, \${name}!\`);
+  }
+  
+  greet('World');`,
+    },
+    {
+        label: 'TypeScript',
+        value: 'typescript',
+        template: `// TypeScript Starter
+  // TypeScript supports static typing
+  function greet(name: string): void {
+    console.log(\`Hello, \${name}!\`);
+  }
+  
+  greet('TypeScript');`,
+    },
+    {
+        label: 'C++',
+        value: 'cpp',
+        template: `// C++ Starter
+  #include <iostream>
+  using namespace std;
+  
+  int main() {
+      cout << "Hello, C++!" << endl;
+      cout << "Welcome to programming in C++" << endl;
+      return 0;
+  }`,
+    },
+    {
+        label: 'C#',
+        value: 'csharp',
+        template: `// C# Starter
+  using System;
+  
+  class Program {
+      static void Main() {
+          Console.WriteLine("Hello, C#!");
+          Console.WriteLine("Welcome to programming in C#");
+      }
+  }`,
+    },
+    {
+        label: 'Java',
+        value: 'java',
+        template: `// Java Starter
+  public class Main {
+      public static void main(String[] args) {
+          System.out.println("Hello, Java!");
+          System.out.println("Welcome to programming in Java");
+      }
+  }`,
+    },
+    {
+        label: 'HTML',
+        value: 'html',
+        template: `<!-- HTML Starter -->
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Hello HTML</title>
+  </head>
+  <body>
+      <h1>Hello, HTML!</h1>
+      <p>Welcome to web development.</p>
+      <button onclick="alert('Hello, HTML!')">Click Me</button>
+  </body>
+  </html>`,
+    },
+];
+
